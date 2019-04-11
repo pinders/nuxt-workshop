@@ -1,21 +1,22 @@
 <template>
-  <v-card @mouseenter="hovered = true" @mouseleave="hovered = false">
+  <v-card @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <v-card-text>
       <p class="body-2">
         {{ title }}
       </p>
       <p>{{ description }}</p>
     </v-card-text>
-    <v-card-actions v-if="hovered">
-      <v-btn color="grey darken-1" flat icon>
-        <v-icon v-if="archived" @click="unarchiveNote({ id })">
+    <v-card-actions v-if="isHovered">
+      <v-btn :loading="isArchivingNote || isUnarchivingNote" color="grey darken-1" flat icon>
+        <v-icon v-if="isArchived" @click="unarchiveNote">
           unarchive
         </v-icon>
-        <v-icon v-else @click="archiveNote({ id })">
+        <v-icon v-else @click="archiveNote">
           archive
         </v-icon>
       </v-btn>
-      <v-btn color="red lighten-1" flat icon @click="deleteNote({ id })">
+
+      <v-btn :loading="isDeletingNote" color="red lighten-1" flat icon @click="deleteNote">
         <v-icon>delete</v-icon>
       </v-btn>
     </v-card-actions>
@@ -23,24 +24,50 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: {
     id: { type: String, default: '' },
     title: { type: String, default: '' },
     description: { type: String, default: '' },
-    archived: { type: Boolean, default: false }
+    isArchived: { type: Boolean, default: false }
   },
   data() {
     return {
-      hovered: false
+      isArchivingNote: false,
+      isDeletingNote: false,
+      isHovered: false,
+      isUnarchivingNote: false
     }
   },
-  methods: mapMutations({
-    archiveNote: 'notes/archiveNote',
-    deleteNote: 'notes/deleteNote',
-    unarchiveNote: 'notes/unarchiveNote'
-  })
+  methods: {
+    ...mapActions({
+      archiveNoteAction: 'notes/archiveNote',
+      deleteNoteAction: 'notes/deleteNote',
+      unarchiveNoteAction: 'notes/unarchiveNote'
+    }),
+    async archiveNote() {
+      this.isArchivingNote = true
+
+      await this.archiveNoteAction({ id: this.id })
+
+      this.isArchivingNote = false
+    },
+    async deleteNote() {
+      this.isDeletingNote = true
+
+      await this.deleteNoteAction({ id: this.id })
+
+      this.isDeletingNote = false
+    },
+    async unarchiveNote() {
+      this.isUnarchivingNote = true
+
+      await this.unarchiveNoteAction({ id: this.id })
+
+      this.isUnarchivingNote = false
+    }
+  }
 }
 </script>

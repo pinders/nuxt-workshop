@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="amber" app absolute clipped-left>
+  <v-toolbar color="amber" absolute app clipped-left>
     <v-toolbar-side-icon @click="toggleNavigationDrawer" />
     <IkadoKeepLogo />
   </v-toolbar>

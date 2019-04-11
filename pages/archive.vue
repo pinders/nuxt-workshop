@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <Notes archived />
+    <Notes is-archived />
   </v-container>
 </template>
 
