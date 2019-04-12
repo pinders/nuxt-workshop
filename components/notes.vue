@@ -1,26 +1,14 @@
 <template>
   <v-container grid-list-xl>
     <v-layout wrap>
-      <v-flex xs4>
+      <v-flex v-for="note in notes" :key="note.id" xs4>
         <v-card>
           <v-card-text>
             <p class="body-2">
-              Notiz 1
+              {{ note.title }}
             </p>
 
-            <p>Test</p>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-
-      <v-flex xs4>
-        <v-card>
-          <v-card-text>
-            <p class="body-2">
-              Notiz 2
-            </p>
-
-            <p>Test</p>
+            <p>{{ note.description }}</p>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -29,5 +17,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      notes: [
+        { id: '1', title: 'Notiz 1', description: 'Test' },
+        { id: '2', title: 'Notiz 2', description: 'Test' }
+      ]
+    }
+  }
+}
 </script>
