@@ -42,29 +42,25 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      archiveNoteAction: 'notes/archiveNote',
-      deleteNoteAction: 'notes/deleteNote',
-      unarchiveNoteAction: 'notes/unarchiveNote'
-    }),
+    ...mapActions(['ARCHIVE_NOTE', 'DELETE_NOTE', 'UNARCHIVE_NOTE']),
     async archiveNote() {
       this.isArchivingNote = true
 
-      await this.archiveNoteAction({ id: this.id })
+      await this.ARCHIVE_NOTE({ id: this.id })
 
       this.isArchivingNote = false
     },
     async deleteNote() {
       this.isDeletingNote = true
 
-      await this.deleteNoteAction({ id: this.id })
+      await this.DELETE_NOTE({ id: this.id })
 
       this.isDeletingNote = false
     },
     async unarchiveNote() {
       this.isUnarchivingNote = true
 
-      await this.unarchiveNoteAction({ id: this.id })
+      await this.UNARCHIVE_NOTE({ id: this.id })
 
       this.isUnarchivingNote = false
     }

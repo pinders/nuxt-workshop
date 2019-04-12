@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl>
     <v-layout wrap>
-      <v-flex v-for="note in filteredNotes" :key="note.id" xs4>
+      <v-flex v-for="note in notes" :key="note.id" xs4>
         <Note :id="note.id" :title="note.title" :description="note.description" :is-archived="note.isArchived" />
       </v-flex>
 
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import Note from '~/components/note'
 
@@ -30,22 +30,22 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      notes: state => state.notes.all
-    }),
-    filteredNotes() {
-      return this.notes.filter(note => note.isArchived === this.isArchived)
+    ...mapGetters(['activeNotes', 'archivedNotes']),
+    notes() {
+      if (this.isArchived) {
+        return this.archivedNotes
+      }
+
+      return this.activeNotes
     }
   },
   async created() {
     this.isLoadingNotes = true
 
-    await this.loadNotes()
+    await this.LOAD_NOTES()
 
     this.isLoadingNotes = false
   },
-  methods: mapActions({
-    loadNotes: 'notes/loadNotes'
-  })
+  methods: mapActions(['LOAD_NOTES'])
 }
 </script>

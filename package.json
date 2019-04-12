@@ -1,7 +1,5 @@
 {
   "name": "nuxt-workshop",
-  "version": "1.0.0",
-  "description": "Building Ikado Keep in an interactive workshop",
   "author": "Erik Pinders",
   "scripts": {
     "dev": "nuxt",

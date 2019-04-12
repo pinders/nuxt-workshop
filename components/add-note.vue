@@ -1,44 +1,38 @@
 <template>
-  <v-dialog max-width="512">
-    <template v-slot:activator="{ on }">
-      <v-btn
-        color="primary"
-        bottom
-        fab
-        fixed
-        right
-        v-on="on"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
-    </template>
+  <div>
+    <v-btn
+      color="primary"
+      bottom
+      fab
+      fixed
+      right
+      @click="isDialogVisible = true"
+    >
+      <v-icon>add</v-icon>
+    </v-btn>
 
-    <v-card>
-      <v-card-title class="headline">
-        Neue Notiz hinzufügen
-      </v-card-title>
+    <v-dialog v-model="isDialogVisible" max-width="512">
+      <v-card>
+        <v-card-title class="headline">
+          Neue Notiz
+        </v-card-title>
 
-      <v-card-text>
-        <v-text-field v-model="title" label="Titel der Notiz" box />
-        <v-textarea
-          v-model="description"
-          label="Beschreibung der Notiz"
-          box
-        />
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          :loading="isAddingNote"
-          color="primary"
-          block
-          large
-          @click="addNote"
-        >
-          Neue Notiz hinzufügen
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+        <v-card-text>
+          <v-text-field v-model="title" label="Titel" />
+          <v-textarea v-model="description" label="Beschreibung" />
+          <v-btn
+            :loading="isAddingNote"
+            color="primary"
+            block
+            large
+            @click="addNote"
+          >
+            Notiz hinzufügen
+          </v-btn>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
@@ -49,20 +43,17 @@ export default {
     return {
       title: '',
       description: '',
-      isAddingNote: false
+      isAddingNote: false,
+      isDialogVisible: false
     }
   },
   methods: {
-    ...mapActions({
-      addNoteAction: 'notes/addNote'
-    }),
+    ...mapActions(['ADD_NOTE']),
     async addNote() {
       this.isAddingNote = true
 
-      const id = new Date().getTime()
-
-      await this.addNoteAction({
-        id,
+      await this.ADD_NOTE({
+        id: new Date().getTime(),
         title: this.title,
         description: this.description,
         isArchived: false
@@ -70,6 +61,7 @@ export default {
 
       this.title = ''
       this.description = ''
+      this.isDialogVisible = false
 
       this.isAddingNote = false
     }
