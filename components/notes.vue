@@ -2,7 +2,7 @@
   <v-container grid-list-xl>
     <v-layout wrap>
       <v-flex v-for="note in notes" :key="note.id" xs4>
-        <Note />
+        <Note :id="note.id" :title="note.title" :description="note.description" />
       </v-flex>
     </v-layout>
   </v-container>
