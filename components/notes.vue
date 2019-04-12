@@ -2,22 +2,19 @@
   <v-container grid-list-xl>
     <v-layout wrap>
       <v-flex v-for="note in notes" :key="note.id" xs4>
-        <v-card>
-          <v-card-text>
-            <p class="body-2">
-              {{ note.title }}
-            </p>
-
-            <p>{{ note.description }}</p>
-          </v-card-text>
-        </v-card>
+        <Note />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import Note from './note'
+
 export default {
+  components: {
+    Note
+  },
   data() {
     return {
       notes: [
