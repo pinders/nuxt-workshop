@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    :value="true"
+    :value="isVisible"
     class="transparent"
     app
     clipped
@@ -25,6 +25,9 @@
 
 <script>
 export default {
+  props: {
+    isVisible: { type: Boolean, default: true }
+  },
   data() {
     return {
       items: [

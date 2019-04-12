@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <Toolbar />
+    <Toolbar @navigation-drawer-toggled="toggleNavigationDrawer" />
 
-    <NavigationDrawer />
+    <NavigationDrawer :is-visible="isNavigationDrawerVisible" />
 
     <v-content>
       <nuxt />
@@ -18,6 +18,16 @@ export default {
   components: {
     NavigationDrawer,
     Toolbar
+  },
+  data() {
+    return {
+      isNavigationDrawerVisible: true
+    }
+  },
+  methods: {
+    toggleNavigationDrawer() {
+      this.isNavigationDrawerVisible = !this.isNavigationDrawerVisible
+    }
   }
 }
 </script>

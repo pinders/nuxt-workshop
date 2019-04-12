@@ -1,6 +1,6 @@
 <template>
   <v-toolbar color="amber" absolute app clipped-left>
-    <v-toolbar-side-icon />
+    <v-toolbar-side-icon @click="() => $emit('navigation-drawer-toggled')" />
 
     <IkadoKeepLogo />
   </v-toolbar>
