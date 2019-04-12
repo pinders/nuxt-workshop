@@ -1,5 +1,5 @@
 <template>
-  <Notes />
+  <Notes is-archived />
 </template>
 
 <script>

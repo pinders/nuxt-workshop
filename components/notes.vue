@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl>
     <v-layout wrap>
-      <v-flex v-for="note in notes" :key="note.id" xs4>
+      <v-flex v-for="note in filteredNotes" :key="note.id" xs4>
         <Note :id="note.id" :title="note.title" :description="note.description" />
       </v-flex>
     </v-layout>
@@ -15,12 +15,30 @@ export default {
   components: {
     Note
   },
+  props: {
+    isArchived: { type: Boolean, default: false }
+  },
   data() {
     return {
       notes: [
-        { id: '1', title: 'Notiz 1', description: 'Test' },
-        { id: '2', title: 'Notiz 2', description: 'Test' }
+        { id: '1', title: 'Notiz 1', description: 'Test', isArchived: false },
+        { id: '2', title: 'Notiz 2', description: 'Test', isArchived: true }
       ]
+    }
+  },
+  computed: {
+    activeNotes() {
+      return this.notes.filter(({ isArchived }) => !isArchived)
+    },
+    archivedNotes() {
+      return this.notes.filter(({ isArchived }) => isArchived)
+    },
+    filteredNotes() {
+      if (this.isArchived) {
+        return this.archivedNotes
+      }
+
+      return this.activeNotes
     }
   }
 }
