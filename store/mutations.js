@@ -2,12 +2,21 @@ export default {
   ADD_NOTE(state, note) {
     state.notes.push(note)
   },
+
   ARCHIVE_NOTE(state, { id }) {
     state.notes = state.notes.map(note => (note.id === id ? ({ ...note, isArchived: true }) : note))
   },
 
   DELETE_NOTE(state, { id }) {
     state.notes = state.notes.filter(note => note.id !== id)
+  },
+
+  GOT_NOTES(state) {
+    state.gotNotes = true
+  },
+
+  SET_NOTES(state, notes) {
+    state.notes = notes
   },
 
   UNARCHIVE_NOTE(state, { id }) {

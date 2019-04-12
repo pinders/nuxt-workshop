@@ -9,7 +9,7 @@
     </v-card-text>
 
     <v-card-actions v-if="isHovered">
-      <v-btn color="grey darken-1" flat icon>
+      <v-btn :loading="isArchivingNote || isUnarchivingNote" color="grey darken-1" flat icon>
         <v-icon v-if="isArchived" @click="unarchiveNote">
           unarchive
         </v-icon>
@@ -18,7 +18,7 @@
         </v-icon>
       </v-btn>
 
-      <v-btn color="red lighten-1" flat icon @click="deleteNote">
+      <v-btn :loading="isDeletingNote" color="red lighten-1" flat icon @click="deleteNote">
         <v-icon>delete</v-icon>
       </v-btn>
     </v-card-actions>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: {
@@ -37,19 +37,34 @@ export default {
   },
   data() {
     return {
-      isHovered: false
+      isArchivingNote: false,
+      isDeletingNote: false,
+      isHovered: false,
+      isUnarchivingNote: false
     }
   },
   methods: {
-    ...mapMutations(['ARCHIVE_NOTE', 'DELETE_NOTE', 'UNARCHIVE_NOTE']),
-    archiveNote() {
-      this.ARCHIVE_NOTE({ id: this.id })
+    ...mapActions(['ARCHIVE_NOTE', 'DELETE_NOTE', 'UNARCHIVE_NOTE']),
+    async archiveNote() {
+      this.isArchivingNote = true
+
+      await this.ARCHIVE_NOTE({ id: this.id })
+
+      this.isArchivingNote = false
     },
-    deleteNote() {
-      this.DELETE_NOTE({ id: this.id })
+    async deleteNote() {
+      this.isDeletingNote = true
+
+      await this.DELETE_NOTE({ id: this.id })
+
+      this.isDeletingNote = false
     },
-    unarchiveNote() {
-      this.UNARCHIVE_NOTE({ id: this.id })
+    async unarchiveNote() {
+      this.isUnarchivingNote = true
+
+      await this.UNARCHIVE_NOTE({ id: this.id })
+
+      this.isUnarchivingNote = false
     }
   }
 }
