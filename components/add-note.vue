@@ -20,6 +20,7 @@
             color="primary"
             block
             large
+            @click="addNote"
           >
             Notiz hinzufügen
           </v-btn>
@@ -30,12 +31,29 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
       title: '',
       description: '',
       isDialogVisible: false
+    }
+  },
+  methods: {
+    ...mapMutations(['ADD_NOTE']),
+    addNote() {
+      this.ADD_NOTE({
+        id: new Date().getTime().toString(),
+        title: this.title,
+        description: this.description,
+        isArchived: false
+      })
+
+      this.title = ''
+      this.description = ''
+      this.isDialogVisible = false
     }
   }
 }
