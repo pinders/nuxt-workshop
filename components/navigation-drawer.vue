@@ -29,7 +29,7 @@ export default {
     return {
       items: [
         { icon: 'lightbulb_outline', text: 'Notizen', to: '/' },
-        { icon: 'archive', text: 'Archiv', to: '/archvie' }
+        { icon: 'archive', text: 'Archiv', to: '/archive' }
       ]
     }
   }
