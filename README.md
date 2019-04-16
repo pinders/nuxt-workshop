@@ -11,3 +11,7 @@ Install the following extensions:
 The extensions are not strictly necessary but make working with Vue.js really easy.
 
 *Remember to restart VS Code after installing the extensions.*
+
+## Preparing Chrome
+Install the following extensions:
+- Vue.js devtools (https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
