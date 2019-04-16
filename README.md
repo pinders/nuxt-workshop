@@ -15,3 +15,9 @@ The extensions are not strictly necessary but make working with Vue.js really ea
 ## Preparing Chrome
 Install the following extensions:
 - Vue.js devtools (https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+
+## Cloning the repository
+Run `git clone git@github.com:pinders/nuxt-workshop.git` to copy the directory to your machine and `cd ./nuxt-workshop` to change to the new directory.
+
+## Getting started
+Run `npm install` to install the required dependencies. Afterwards change to the branch `1-pages` for the first lesson.
